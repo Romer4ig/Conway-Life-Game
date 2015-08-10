@@ -89,32 +89,35 @@ Life.prototype.getCell = function (h, w) {
     }
 };
 
-Life.prototype.pars = function() {
-    var rle = document.getElementById('rle').value;
-    if (rle == 'Вставьте свой код RLE шаблона') return false;
-    var params = rle.split('\n', 1)[0].split(",").map(function (x) {
+
+function RleImport (life){
+    this.life = life;
+}
+RleImport.prototype.pars = function(str) {
+    if (str.value == 'Вставьте свой код RLE шаблона') return false;
+    var params = str.value.split('\n', 1)[0].split(",").map(function (x) {
         return x.split("=")[1]
-    })
+    });
     var x = +params[0],
         y = +params[1];
-    l.rows = y + 6;
-    l.cols = x + 6;
+    this.life.rows = y + 6;
+    this.life.cols = x + 6;
 
-    l.area = l.initArea();
-    var lines = rle.match(/((\d{0,3})([bo$!]))/g);
+    this.life.area = this.life.initArea();
+    var lines = str.value.match(/((\d{0,3})([bo$!]))/g);
     var row = 3,
         col = 3;
     for (var i = 0; i < lines.length; i++) {
         var number = lines[i].match(/(\d{0,3})/)[0] == '' ? 1 : +lines[i].match(/(\d{0,3})/)[0],
             last_symbol = lines[i][lines[i].length - 1];
         if (last_symbol == '!') {
-            t = new TableLifeView(l);
+            t = new TableLifeView(this.life);
             t.render()
         } else if (last_symbol == 'b') {
             col += number
         } else if (last_symbol == 'o') {
             for (var j = 0; j < number; j++) {
-                l.setCell(row, col)
+                this.life.setCell(row, col)
                 col += 1
             }
         } else if (last_symbol == '$') {
@@ -127,7 +130,7 @@ Life.prototype.pars = function() {
         }
     }
     return 'Success'
-}
+};
 
 function TableLifeView(life) {
     this.game = life;
@@ -185,7 +188,8 @@ TableLifeView.prototype._render = function () {
 };
 
 
-var l = new Life(22, 19);
+var l = new Life(22, 19),
+    r = new RleImport(l)
 
 l.setCell(5, 8);
 l.setCell(5, 9);
