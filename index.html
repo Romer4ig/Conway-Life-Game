@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        td {
+            width: 5px;
+            height: 5px;
+            border: 1px solid grey;
+        }
+
+        .live {
+            background: red;
+        }
+        input[type="button"]{
+            margin: 2px 0px 2px
+        }
+    </style>
+    <title>Игра "Жизнь"</title>
+</head>
+<body>
+<div>
+    <div id="help">Вы можете остановить нажав на "Пауза" и добавить еще клеток
+        <input type="button" value="Пауза" onclick="togglePause()"/>
+        <input type="button" value="Сделать шаг" onclick="tick()"/>
+        <input type="button" value="Заполнить поле случайно" onclick="l.ranomize();t.render(document.getElementById('lifegame'))"/>
+    </div>
+    H: <input id="h" type="text" value="22" size="2" maxlength="100"/>
+    W: <input id="w" type="text" value="19" size="2" maxlength="100"/> <input type="button" value="Изменить поле" onclick="reinit()"/><br>
+
+    <div>
+        <textarea name="rle" id="rle" cols="40" rows="4">Вставьте свой код RLE шаблона</textarea><br>
+        <input type="button" value="Import data" onclick="l.pars()">
+    </div>
+</div>
+Step №<span class="step"></span>
+<div id="lifegame"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
