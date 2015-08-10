@@ -94,7 +94,7 @@ function RleImport (life){
     this.life = life;
 }
 RleImport.prototype.pars = function(str) {
-    if (str.value == 'Вставьте свой код RLE шаблона') return false;
+    if (str.value == 'Р’СЃС‚Р°РІСЊС‚Рµ СЃРІРѕР№ РєРѕРґ RLE С€Р°Р±Р»РѕРЅР°') return false;
     var params = str.value.split('\n', 1)[0].split(",").map(function (x) {
         return x.split("=")[1]
     });
